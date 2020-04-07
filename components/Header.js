@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import Constants from 'expo-constants'
 
 export default function Header() {
     return (
@@ -12,16 +13,17 @@ export default function Header() {
 const styles = StyleSheet.create({
     container: {
         alignSelf: 'stretch',
-        backgroundColor:'lightblue',
+        backgroundColor:'#fafafa',
         alignItems: 'center',
-        padding: 30
+        borderRadius: 3,
+        marginTop: Constants.statusBarHeight,
     },
 
     title: {
-        color: '#fff',
+        color: 'lightblue',
         fontWeight: 'bold',
-        marginBottom: -20,
+        fontStyle: 'italic',  
         fontSize: 24,
-        fontFamily:'monospace'
+        fontFamily: 'Roboto'
     },
 })

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import Header from './components/Header'
+import FormInput from './components/FormInput'
 
 
 const App = () => {
@@ -17,43 +18,40 @@ const App = () => {
   const [text, setText] = useState('')
 
 
-  const handleButton = () => {
-    setTodos([...todos, text])
-    setText('')
+  const addTodo = (text) => {
+    if(text != '') {
+      setTodos([...todos, text])
+      setText('')
+    }  
   }
 
-  const handleItemPressed = (item) => {
-    setTodos((prevTodos) => {
-      return prevTodos.filter(todo => todo != item )
-    })
-  }
-
+  
   const handleRenderItem = ({ item }) => {
     return (
-      <TouchableOpacity style={styles.itemContainer} >
+      <TouchableOpacity
+      onPress={() => handleItemPressed(item)}
+      style={styles.itemContainer} >
         <Text style={styles.itemText}>{item}</Text>
       </TouchableOpacity>
     )
   }
 
+  function handleItemPressed (item) {    
+    const filteredTodos = todos.filter((todo) => {
+      if(todo != item)
+      return todo
+    })
+
+    setTodos(filteredTodos)
+  }
+
   return (
+
     <View style={styles.container}>
       <Header />
 
-      <View style={styles.form}>
-            <TextInput
-                style={styles.input}
-                placeholder='add new todo...'
-                onChangeText={setText}
-                value={text}
-            />
-            <Button
-                style={styles.btn}
-                title='Add'
-                color='lightblue'
-                onPress={handleButton}
-            />
-        </View>
+      <FormInput
+        addTodo={addTodo} />
 
       <FlatList 
         data={todos}
@@ -74,17 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
   },
-
-  form: {
-    flexDirection: 'row',
-    marginVertical: 20,
-  },
-
-  input: {
-      margin: 10,
-      width: 150
-  },
-
+  
   itemContainer: {
     marginVertical: 5
   },

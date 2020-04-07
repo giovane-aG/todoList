@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { View, TextInput, Button, StyleSheet } from 'react-native'
+import { View, TextInput, Button, StyleSheet, Keyboard } from 'react-native'
+
 
 export default function FormInput({ addTodo }) {
     const [text, setText] = useState('')
     
 
     function handleButton() {
+        Keyboard.dismiss()
         addTodo(text)
         setText('')
     }
@@ -14,7 +16,7 @@ export default function FormInput({ addTodo }) {
         <View style={styles.form}>
             <TextInput
                 style={styles.input}
-                placeholder='add new todo...'
+                placeholder='Add new todo...'
                 value={text}
                 onChangeText={setText}
             />
